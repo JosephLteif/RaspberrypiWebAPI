@@ -1,9 +1,12 @@
 from flask import Flask
-import RPi.GPIO as GPIO
 
+from helper.sensorHelper import SensorHelper
+# import RPi.GPIO as GPIO
+
+jsonHelper = SensorHelper()
 
 app = Flask(__name__)
-GPIO.setmode(GPIO.BOARD)
+# GPIO.setmode(GPIO.BOARD)
 
 def outputpin(pinNum):
     GPIO.setup(int(pinNum), GPIO.OUT)
@@ -15,9 +18,14 @@ def inputpin(pinNum):
 def index():
     return "Hello world!" 
 
-@app.route('/<id>')
-def test(id):
-    return id
+@app.route('/sensor/<pin>')
+def getSensor(pin):
+    return jsonHelper.getSensor(pin)
+
+@app.route('/sensors')
+def getSensors():
+    return jsonHelper.getSensors()
+
 
 @app.route('/<pin>/HIGH')
 def HIGH(pin):

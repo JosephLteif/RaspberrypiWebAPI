@@ -1,0 +1,11 @@
+{
+    "15":{
+        "name":"sensor 1",
+        "status":"Off"
+    },
+    "16":{
+        "name":"sensor 2",
+        "status":"On"
+    }
+
+}

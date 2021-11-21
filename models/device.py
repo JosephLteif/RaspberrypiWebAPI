@@ -1,0 +1,10 @@
+class Device:
+	name: str
+	description: str
+	category: str
+	ip: str
+	location: str
+	nb_sensors: int
+	run_time: int
+	status: int
+	image: str
