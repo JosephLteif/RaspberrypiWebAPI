@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 from helper.sensorHelper import SensorHelper
 # import RPi.GPIO as GPIO
@@ -18,13 +18,30 @@ def inputpin(pinNum):
 def index():
     return "Hello world!" 
 
-@app.route('/sensor/<pin>')
+@app.route('/sensors', methods=['GET'])
+def getSensors():
+    return jsonHelper.getSensors()
+
+@app.route('/sensors/<pin>', methods=['GET'])
 def getSensor(pin):
     return jsonHelper.getSensor(pin)
 
-@app.route('/sensors')
-def getSensors():
-    return jsonHelper.getSensors()
+@app.route('/sensors', methods=['Post'])
+def addSensor():
+    sensor,pin=jsonHelper.request_to_sensor(request)
+    jsonHelper.addSensor(sensor,pin)
+    return ('', 204)
+
+@app.route('/sensors/<pin>', methods=['Put'])
+def updateSensor(pin):
+    sensor,pin2=jsonHelper.request_to_sensor(request)
+    jsonHelper.editSensor(sensor,pin)
+    return jsonHelper.getSensor(pin)
+
+@app.route('/sensors/<pin>', methods=['Delete'])
+def deleteSensor(pin):
+    jsonHelper.removeSensor(pin)
+    return ('', 204)
 
 
 @app.route('/<pin>/HIGH')

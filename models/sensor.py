@@ -1,6 +1,6 @@
-class Sensor:
+from pydantic import BaseModel
+class Sensor(BaseModel):
 	name: str
-	pin: int
 	category: str
 	value: float
-	status: int
+	status: str
