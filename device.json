@@ -1,0 +1,10 @@
+{
+    "name" : "Device 1",
+    "description" : "",
+    "category" : "",
+    "location" : "",
+    "default_ip" : "192.168.1.114",
+    "default_port" : "5000",
+    "listening_ip" : "127.0.0.1",
+    "listening_port" : "1234"
+}

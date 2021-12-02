@@ -1,10 +1,13 @@
 import json
 from os import name
 from models.sensor import Sensor
+from models.device import Device
 class SensorHelper():
     def __init__(self):
-        self.file_name = "sensors.json"
+        self.sensors_file_name = "sensors.json"
+        self.device_file_name = "device.json"
         self.sensors = self.loadSensors()
+        self.device = self.loadDevice()
 
     def json_to_sensor(self, sensor_json, pin):
         return Sensor(
@@ -44,7 +47,12 @@ class SensorHelper():
             outfile.write(json_object)
 
     def loadSensors(self):
-        with open(self.file_name, 'r') as openfile:
+        with open(self.sensors_file_name, 'r') as openfile:
+            json_object = json.load(openfile)
+        return json_object
+
+    def loadDevice(self):
+        with open(self.device_file_name, 'r') as openfile:
             json_object = json.load(openfile)
         return json_object
 
@@ -53,4 +61,7 @@ class SensorHelper():
 
     def getSensors(self):
         return self.sensors
+
+    def getDevice(self):
+        return self.device
 
