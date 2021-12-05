@@ -66,6 +66,12 @@ def LOW(pin):
     GPIO.output(int(pin), GPIO.LOW)
     return "Hello From LOW!" 
 
+
+@app.route('/aa', methods=['GET'])
+def getSensor(pin):
+    client.connect()
+    return ('', 204)
+
 # @app.route('/<pin>')
 # def readSensor(pin):  
 #     inputpin(pin)
