@@ -25,7 +25,7 @@ def index():
     return "Hello world!" 
 
 @app.route('/device', methods=['GET'])
-def getSensors():
+def getDevices():
     return jsonHelper.getDevice()
 
 @app.route('/sensors', methods=['GET'])
@@ -68,7 +68,7 @@ def LOW(pin):
 
 
 @app.route('/aa', methods=['GET'])
-def getSensor(pin):
+def getSensor2(pin):
     client.connect()
     return ('', 204)
 
