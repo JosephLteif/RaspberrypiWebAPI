@@ -1,0 +1,14 @@
+{
+    "led":{
+        "channel_name":"my-channel",
+        "refresh_time":2
+    },
+    "thermometerSensor":{
+        "channel_name":"thermoSensor",
+        "refresh_time":1
+    },
+    "waterSensor":{
+        "channel_name":"waterSensor",
+        "refresh_time":0.3
+    }
+}

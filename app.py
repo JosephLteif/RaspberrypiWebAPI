@@ -2,23 +2,32 @@ from flask import Flask, request
 
 from helper.sensorHelper import SensorHelper
 from client import Client
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BOARD)
+
+def get_value_from_sensor(pin):
+    inputpin(pin)
+    return str(GPIO.input(int(pin)))
+    return pin
 
 jsonHelper = SensorHelper()
 
-client = Client(jsonHelper.device)
+client = Client(jsonHelper.device,get_value_from_sensor)
+# client.invoke_state()
 # to start listening do:
 # client.connect()
 #to stop it send from the laravel server "stop"
 
 app = Flask(__name__)
-# GPIO.setmode(GPIO.BOARD)
+
 
 def outputpin(pinNum):
     GPIO.setup(int(pinNum), GPIO.OUT)
 
 def inputpin(pinNum):
     GPIO.setup(int(pinNum), GPIO.IN)
+
+
 
 @app.route('/')
 def index():
@@ -66,11 +75,15 @@ def LOW(pin):
     GPIO.output(int(pin), GPIO.LOW)
     return "Hello From LOW!" 
 
-
-@app.route('/aa', methods=['GET'])
-def getSensor2(pin):
-    client.connect()
+@app.route('/<pin>/<channel>')
+def getValueOfSensor(pin,channel):
+    client.start_connection(channel, pin)
     return ('', 204)
+
+# @app.route('/aa', methods=['GET'])
+# def getSensor2(pin):
+#     client.connect()
+#     return ('', 204)
 
 # @app.route('/<pin>')
 # def readSensor(pin):  
