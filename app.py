@@ -2,12 +2,12 @@ from flask import Flask, request
 
 from helper.sensorHelper import SensorHelper
 from client import Client
-# import RPi.GPIO as GPIO
-# GPIO.setmode(GPIO.BOARD)
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BOARD)
 
 def get_value_from_sensor(pin):
-    # inputpin(pin)
-    # return str(GPIO.input(int(pin)))
+    inputpin(pin)
+    return str(GPIO.input(int(pin)))
     return pin
 
 jsonHelper = SensorHelper()
