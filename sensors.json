@@ -1,20 +1,32 @@
 {
  "15": {
-  "name": "sensor 1",
+  "name": "ThermoSensor",
   "status": "Off",
-  "category": "lamp",
+  "category": "Thermo",
   "value": 1.0
  },
  "16": {
-  "name": "sensor 2",
+  "name": "WaterSensor",
   "status": "On",
-  "category": "lamp",
+  "category": "Hydraulic",
   "value": 1.0
  },
  "10": {
-  "name": "test",
+  "name": "LEDSensor",
   "category": "LED",
   "value": "1.0",
   "status": "ON"
+ },
+ "17": {
+  "name": "ButtonSensor",
+  "status": "On",
+  "category": "Button",
+  "value": 1.0
+ },
+ "29": {
+  "name": "test",
+  "category": "Thermo",
+  "value": "0",
+  "status": "Off"
  }
 }

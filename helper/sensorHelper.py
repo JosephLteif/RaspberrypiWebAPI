@@ -31,19 +31,19 @@ class SensorHelper():
         print(sensor)
         self.sensors[pin] = sensor
         json_object = json.dumps(self.sensors, indent = 1)
-        with open(self.file_name, "w") as outfile:
+        with open(self.sensors_file_name, "w") as outfile:
             outfile.write(json_object)
 
     def removeSensor(self, pin):
         del self.sensors[pin]
         json_object = json.dumps(self.sensors, indent = 1)
-        with open(self.file_name, "w") as outfile:
+        with open(self.sensors_file_name, "w") as outfile:
             outfile.write(json_object)
 
     def editSensor(self, sensor, pin):
         self.sensors[pin] = sensor
         json_object = json.dumps(self.sensors, indent = 1)
-        with open(self.file_name, "w") as outfile:
+        with open(self.sensors_file_name, "w") as outfile:
             outfile.write(json_object)
 
     def loadSensors(self):
