@@ -57,7 +57,7 @@ class Client():
                 else:
                     dict_request[str(sensor)+"_status"] = "ON"
                     dict_request[str(sensor)+"_value"] =str(self.func(sensor))
-           
+                    
             self.pusher_client.trigger(self.main_channel_name, 'my-event', dict_request)
             time.sleep(5)
 

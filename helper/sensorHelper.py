@@ -45,6 +45,14 @@ class SensorHelper():
         json_object = json.dumps(self.sensors, indent = 1)
         with open(self.sensors_file_name, "w") as outfile:
             outfile.write(json_object)
+    
+    def changeSensorStatus(self, pin, status, value):
+        
+        self.sensors[str(pin)]["status"] = status
+        self.sensors[str(pin)]["value"] = value
+        json_object = json.dumps(self.sensors, indent = 1)
+        with open(self.sensors_file_name, "w") as outfile:
+            outfile.write(json_object)
 
     def loadSensors(self):
         with open(self.sensors_file_name, 'r') as openfile:

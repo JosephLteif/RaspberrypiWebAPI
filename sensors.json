@@ -14,8 +14,8 @@
  "10": {
   "name": "LEDSensor",
   "category": "LED",
-  "value": "1.0",
-  "status": "ON"
+  "value": 0,
+  "status": "OFF"
  },
  "17": {
   "name": "ButtonSensor",

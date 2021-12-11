@@ -63,17 +63,24 @@ def deleteSensor(pin):
     return ('', 204)
 
 
-@app.route('/<pin>/HIGH')
-def HIGH(pin):
-    outputpin(pin)
-    GPIO.output(int(pin), GPIO.HIGH)
-    return "Hello From HIGH!" 
-
-@app.route('/<pin>/LOW')
-def LOW(pin):  
-    outputpin(pin)
-    GPIO.output(int(pin), GPIO.LOW)
-    return "Hello From LOW!" 
+@app.route('/ChangeState', methods=['Post'])
+def status():
+    print('in status')
+    pin = request.form.get("pin")
+    print('starting in')
+    status = request.form.get("status")
+    print(status)
+    if(status == "OFF"):
+        # outputpin(pin)
+        # GPIO.output(int(pin), GPIO.HIGH)
+        jsonHelper.changeSensorStatus(int(pin),"ON",1)
+        
+    else:
+        # outputpin(pin)
+        # GPIO.output(int(pin), GPIO.LOW)
+        jsonHelper.changeSensorStatus(int(pin),"OFF",0)
+    
+    return ('', 204) 
 
 @app.route('/<pin>/<channel>')
 def getValueOfSensor(pin,channel):
