@@ -1,13 +1,13 @@
 {
  "15": {
   "name": "ThermoSensor",
-  "status": "Off",
+  "status": "OFF",
   "category": "Thermo",
   "value": 1.0
  },
  "16": {
   "name": "WaterSensor",
-  "status": "On",
+  "status": "ON",
   "category": "Hydraulic",
   "value": 1.0
  },
@@ -27,6 +27,6 @@
   "name": "test",
   "category": "Thermo",
   "value": "0",
-  "status": "Off"
+  "status": "OFF"
  }
 }

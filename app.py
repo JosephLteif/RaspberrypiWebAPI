@@ -2,17 +2,17 @@ from flask import Flask, request
 
 from helper.sensorHelper import SensorHelper
 from client import Client
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BOARD)
+# import RPi.GPIO as GPIO
+# GPIO.setmode(GPIO.BOARD)
 
 def get_value_from_sensor(pin):
-    inputpin(pin)
-    return str(GPIO.input(int(pin)))
+    # inputpin(pin)
+    # return str(GPIO.input(int(pin)))
     return pin
 
 jsonHelper = SensorHelper()
 
-client = Client(jsonHelper.device,get_value_from_sensor)
+client = Client(jsonHelper.device,jsonHelper.sensors,get_value_from_sensor)
 # client.invoke_state()
 # to start listening do:
 # client.connect()
@@ -77,8 +77,13 @@ def LOW(pin):
 
 @app.route('/<pin>/<channel>')
 def getValueOfSensor(pin,channel):
-    client.start_connection(channel, pin)
+    if(channel == "SensorsValueChannel"):
+        client.start_main_connection()
+    else:    
+        client.start_connection(channel, pin)
     return ('', 204)
+
+
 
 # @app.route('/aa', methods=['GET'])
 # def getSensor2(pin):
