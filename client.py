@@ -51,7 +51,8 @@ class Client():
             dict_request = {}
             for sensor in self.sensor_info:
                 # dict_request[str(sensor)+"_value"] =str(self.func(sensor))
-                if(self.func(sensor) == 0):
+                num = self.func(sensor)
+                if(num == 0 or self.sensor_info[str(sensor)]["status"] == "OFF"):
                     dict_request[str(sensor)+"_status"] = "OFF"
                     dict_request[str(sensor)+"_value"] ="---"
                 else:
