@@ -1,14 +1,15 @@
 from flask import Flask, request
-
+from flask_ngrok import run_with_ngrok
 from helper.sensorHelper import SensorHelper
 from client import Client
+import random
 # import RPi.GPIO as GPIO
 # GPIO.setmode(GPIO.BOARD)
 
 def get_value_from_sensor(pin):
     # inputpin(pin)
     # return str(GPIO.input(int(pin)))
-    return pin
+    return random.randint(0,50)
 
 jsonHelper = SensorHelper()
 
@@ -102,7 +103,8 @@ def getValueOfSensor(pin,channel):
 #     inputpin(pin)
 #     GPIO.output(int(pin), GPIO.LOW)
 #     return "Hello From LOW!" 
-
+run_with_ngrok(app)
 if __name__ == '__main__':
     app.debug = True
-    app.run(host="0.0.0.0")
+    # app.run(host="0.0.0.0")
+    app.run()

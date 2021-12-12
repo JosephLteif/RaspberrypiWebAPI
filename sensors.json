@@ -7,9 +7,9 @@
  },
  "16": {
   "name": "WaterSensor",
-  "status": "OFF",
+  "status": "ON",
   "category": "Hydraulic",
-  "value": 0
+  "value": 1
  },
  "10": {
   "name": "LEDSensor",
