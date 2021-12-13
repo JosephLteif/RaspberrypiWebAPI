@@ -35,7 +35,7 @@ class Client():
 
     def connect(self,channel_name,pin):
         time.sleep(2)
-        while(self.pusher_client.channel_info(channel_name)["occupied"]):
+        while(self.pusher_client.channel_info(self.name)["occupied"]):
             print("sending values")
             self.pusher_client.trigger(self.name, channel_name, {'message': str(self.func(pin))})
             # self.pusher_client.trigger(channel_name, channel_name, {'message': str(pin)})
@@ -46,13 +46,13 @@ class Client():
 
     def main_connection(self):
         time.sleep(2)
-        while(self.pusher_client.channel_info(self.main_channel_name)["occupied"]):
+        while(self.pusher_client.channel_info(self.name)["occupied"]):
             print("sending to main")
             dict_request = {}
             for sensor in self.sensor_info:
                 # dict_request[str(sensor)+"_value"] =str(self.func(sensor))
-                num = self.func(sensor)
-                if(num == 0 or self.sensor_info[str(sensor)]["status"] == "OFF"):
+                # num = self.func(sensor)
+                if(self.sensor_info[str(sensor)]["status"] == "OFF"):
                     dict_request[str(sensor)+"_status"] = "OFF"
                     dict_request[str(sensor)+"_value"] ="---"
                 else:
