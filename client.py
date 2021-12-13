@@ -37,7 +37,7 @@ class Client():
         time.sleep(2)
         while(self.pusher_client.channel_info(channel_name)["occupied"]):
             print("sending values")
-            self.pusher_client.trigger(channel_name, 'my-event', {'message': str(self.func(pin))})
+            self.pusher_client.trigger(self.name, channel_name, {'message': str(self.func(pin))})
             # self.pusher_client.trigger(channel_name, channel_name, {'message': str(pin)})
             time.sleep(0.3)
 
@@ -59,6 +59,6 @@ class Client():
                     dict_request[str(sensor)+"_status"] = "ON"
                     dict_request[str(sensor)+"_value"] =str(self.func(sensor))
                     
-            self.pusher_client.trigger(self.main_channel_name, 'my-event', dict_request)
+            self.pusher_client.trigger(self.name, self.main_channel_name , dict_request)
             time.sleep(5)
 
