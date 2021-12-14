@@ -17,6 +17,7 @@ def get_value_from_sensor(pin):
     # else:
     #     GPIO.output(int(pin), GPIO.LOW)
     # return result
+    
     return random.randint(0,50)
 
 
@@ -119,8 +120,8 @@ def getValueOfSensor(pin, channel):
 #     inputpin(pin)
 #     GPIO.output(int(pin), GPIO.LOW)
 #     return "Hello From LOW!"
-run_with_ngrok(app)
+# run_with_ngrok(app)
 if __name__ == '__main__':
     app.debug = True
-    # app.run(host="0.0.0.0")
-    app.run()
+    app.run(host="0.0.0.0")
+    # app.run()
