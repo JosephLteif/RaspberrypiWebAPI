@@ -3,19 +3,21 @@ from flask_ngrok import run_with_ngrok
 from helper.sensorHelper import SensorHelper
 from client import Client
 import random
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BOARD)
+import threading
+# import RPi.GPIO as GPIO
+# GPIO.setmode(GPIO.BOARD)
 
 
 def get_value_from_sensor(pin):
-    inputpin(pin)
-    result = str(GPIO.input(int(pin)))
-    outputpin(pin)
-    if result == '1':
-        GPIO.output(int(pin), GPIO.HIGH)
-    else:
-        GPIO.output(int(pin), GPIO.LOW)
-    return result
+    # inputpin(pin)
+    # result = str(GPIO.input(int(pin)))
+    # outputpin(pin)
+    # if result == '1':
+    #     GPIO.output(int(pin), GPIO.HIGH)
+    # else:
+    #     GPIO.output(int(pin), GPIO.LOW)
+    # return result
+    return random.randint(0,50)
 
 
 jsonHelper = SensorHelper()
@@ -85,13 +87,13 @@ def status():
     status = request.form.get("status")
     print(status)
     if(status == "OFF"):
-        outputpin(pin)
-        GPIO.output(int(pin), GPIO.HIGH)
+        # outputpin(pin)
+        # GPIO.output(int(pin), GPIO.HIGH)
         jsonHelper.changeSensorStatus(int(pin), "ON", 1)
 
     else:
-        outputpin(pin)
-        GPIO.output(int(pin), GPIO.LOW)
+        # outputpin(pin)
+        # GPIO.output(int(pin), GPIO.LOW)
         jsonHelper.changeSensorStatus(int(pin), "OFF", 0)
 
     return ('', 204)
@@ -99,10 +101,12 @@ def status():
 
 @app.route('/<pin>/<channel>')
 def getValueOfSensor(pin, channel):
-    if(channel == "SensorsValueChannel"):
-        client.start_main_connection()
-    else:
-        client.start_connection(channel, pin)
+    threading.Thread(target=client.start_connection_v2).start()
+    # client.start_connection_v2()
+    # if(channel == "SensorsValueChannel"):
+    #     client.start_main_connection()
+    # else:
+    #     client.start_connection(channel, pin)
     return ('', 204)
 
 

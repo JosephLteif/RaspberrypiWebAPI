@@ -17,6 +17,7 @@ class Client():
         self.name = device_info["name"]
         self.delay = 0.1
         self.main_channel_name = "SensorsValueChannel"
+        self.is_sending = False
         
     # def state(self, channels):
     #     while(True):
@@ -30,35 +31,57 @@ class Client():
     #     x = threading.Thread(target=self.state)
     #     x.start()
 
-    def start_connection(self,channel_name,pin):
-        threading.Thread(target=self.connect, args=(channel_name,pin)).start()
+    def start_connection_v2(self):
+        time.sleep(3)
+        if(not self.is_sending):
+            self.is_sending = True
+            threading.Thread(target=self.connection_v2).start()
 
-    def connect(self,channel_name,pin):
-        time.sleep(2)
+    def connection_v2(self):
         while(self.pusher_client.channel_info(self.name)["occupied"]):
-            print("sending values")
-            self.pusher_client.trigger(self.name, channel_name, {'message': str(self.func(pin))})
-            # self.pusher_client.trigger(channel_name, channel_name, {'message': str(pin)})
-            time.sleep(0.3)
-
-    def start_main_connection(self):
-        threading.Thread(target=self.main_connection).start()
-
-    def main_connection(self):
-        time.sleep(2)
-        while(self.pusher_client.channel_info(self.name)["occupied"]):
-            print("sending to main")
             dict_request = {}
             for sensor in self.sensor_info:
-                # dict_request[str(sensor)+"_value"] =str(self.func(sensor))
-                # num = self.func(sensor)
                 if(self.sensor_info[str(sensor)]["status"] == "OFF"):
                     dict_request[str(sensor)+"_status"] = "OFF"
                     dict_request[str(sensor)+"_value"] ="---"
                 else:
                     dict_request[str(sensor)+"_status"] = "ON"
-                    dict_request[str(sensor)+"_value"] =str(self.func(sensor))
+                    dict_request[str(sensor)+"_value"] = str(self.func(sensor))
                     
             self.pusher_client.trigger(self.name, self.main_channel_name , dict_request)
-            time.sleep(5)
+            time.sleep(0.7)
+
+        self.is_sending = False
+
+    # def start_connection(self,channel_name,pin):
+    #     threading.Thread(target=self.connect, args=(channel_name,pin)).start()
+
+    # def connect(self,channel_name,pin):
+    #     time.sleep(2)
+    #     while(self.pusher_client.channel_info(self.name)["occupied"]):
+    #         print("sending values")
+    #         self.pusher_client.trigger(self.name, channel_name, {'message': str(self.func(pin))})
+    #         # self.pusher_client.trigger(channel_name, channel_name, {'message': str(pin)})
+    #         time.sleep(0.3)
+
+    # def start_main_connection(self):
+    #     threading.Thread(target=self.main_connection).start()
+
+    # def main_connection(self):
+    #     time.sleep(2)
+    #     while(self.pusher_client.channel_info(self.name)["occupied"]):
+    #         print("sending to main")
+    #         dict_request = {}
+    #         for sensor in self.sensor_info:
+    #             # dict_request[str(sensor)+"_value"] =str(self.func(sensor))
+    #             # num = self.func(sensor)
+    #             if(self.sensor_info[str(sensor)]["status"] == "OFF"):
+    #                 dict_request[str(sensor)+"_status"] = "OFF"
+    #                 dict_request[str(sensor)+"_value"] ="---"
+    #             else:
+    #                 dict_request[str(sensor)+"_status"] = "ON"
+    #                 dict_request[str(sensor)+"_value"] =str(self.func(sensor))
+                    
+    #         self.pusher_client.trigger(self.name, self.main_channel_name , dict_request)
+    #         time.sleep(5)
 
