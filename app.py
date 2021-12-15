@@ -4,19 +4,19 @@ from helper.sensorHelper import SensorHelper
 from client import Client
 import random
 import threading
-# import RPi.GPIO as GPIO
-# GPIO.setmode(GPIO.BOARD)
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BOARD)
 
 
 def get_value_from_sensor(pin):
-    # inputpin(pin)
-    # result = str(GPIO.input(int(pin)))
-    # outputpin(pin)
-    # if result == '1':
-    #     GPIO.output(int(pin), GPIO.HIGH)
-    # else:
-    #     GPIO.output(int(pin), GPIO.LOW)
-    # return result
+    inputpin(pin)
+    result = str(GPIO.input(int(pin)))
+    outputpin(pin)
+    if result == '1':
+        GPIO.output(int(pin), GPIO.HIGH)
+    else:
+        GPIO.output(int(pin), GPIO.LOW)
+    return result
     
     return random.randint(0,50)
 
@@ -88,13 +88,13 @@ def status():
     status = request.form.get("status")
     print(status)
     if(status == "OFF"):
-        # outputpin(pin)
-        # GPIO.output(int(pin), GPIO.HIGH)
+        outputpin(pin)
+        GPIO.output(int(pin), GPIO.HIGH)
         jsonHelper.changeSensorStatus(int(pin), "ON", 1)
 
     else:
-        # outputpin(pin)
-        # GPIO.output(int(pin), GPIO.LOW)
+        outputpin(pin)
+        GPIO.output(int(pin), GPIO.LOW)
         jsonHelper.changeSensorStatus(int(pin), "OFF", 0)
 
     return ('', 204)
